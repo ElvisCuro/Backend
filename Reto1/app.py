@@ -1,6 +1,6 @@
 from flask import Flask,request,render_template
-from profile import Profile
-from firebase import FirebaseAdmin
+from my_profile import Profile
+from my_firebase import FirebaseAdmin
 
 app = Flask(__name__)
 
@@ -9,22 +9,12 @@ fb = FirebaseAdmin()
 @app.route('/')
 def index():
     perfil = Profile()
-    perfil_fb = fb.get_collection('perfil')
-    perfil_det = perfil_fb[0]
-    experiencia_fb = fb.get_collection('experiencias')
-    perfil_exp = experiencia_fb[0]
-    formacion_fb = fb.get_collection('formacion')
-    perfil_formacion = formacion_fb[0]
-    habilidades_fb = fb.get_collection('habilidades')
-    perfil_skills = habilidades_fb[0]
-    tecnologias_fb = fb.get_collection('tecnologias')
-    perfil_tec = tecnologias_fb[0]
     context = {
         'nombre':perfil.name,
         'imagen':perfil.image,
         'rol':perfil.role,
         'ubicacion':perfil.location,
-        'url_github':perfil.url_github,
+        'url_github':perfil.url_github
     }
     return render_template('index.html',**context)
 
